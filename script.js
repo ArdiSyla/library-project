@@ -35,6 +35,30 @@ function displayLibrary() {
         grid.appendChild(card);
     });
 }
+
+//Dialog
+const dialog = document.getElementById("book-dialog");
+const newBookBtn = document.getElementById("new-book-btn");
+const cancelBtn = document.getElementById("cancel-btn");
+const bookForm = document.getElementById("book-form");
+
+newBookBtn.addEventListener("click", () => dialog.showModal());
+cancelBtn.addEventListener("click",  () => dialog.close());
+
+bookForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      addBookToLibrary(
+        document.getElementById("title").value,
+        document.getElementById("author").value,
+        parseInt(document.getElementById("pages").value),
+        document.getElementById("read").checked
+      );
+      displayLibrary();
+      bookForm.reset();
+      dialog.close();
+    });
+
+
      
 // Seed books
 addBookToLibrary("Atomic Habits", "James Clear", 256, true);

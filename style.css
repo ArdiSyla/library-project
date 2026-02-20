@@ -12,7 +12,7 @@
       --border:   #2e2e2e;
       --text:     #e0e0e0;
       --muted:    #888;
-      --accent:   #f0c040;   /* one warm yellow — easy to swap */
+      --accent:   #f0c040;   
     }
 
     /* ── Reset ── */
@@ -58,6 +58,21 @@
      h1 span {
       color: var(--accent);
     }
+
+    #new-book-btn {
+      background: var(--accent);
+      color: #141414;
+      border: none;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 0.55rem 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    #new-book-btn:hover { opacity: 0.85; }
 
     #book-grid {
       display: grid;
@@ -112,3 +127,93 @@
 
     .read-badge.read   { background: rgba(240,192,64,0.15); color: var(--accent); }
     .read-badge.unread { background: rgba(255,255,255,0.05); color: var(--muted); }
+
+     dialog {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      width: min(420px, 95vw);
+      color: var(--text);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+    }
+
+    dialog::backdrop { background: rgba(0,0,0,0.65); }
+
+    dialog h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+
+     #book-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+     .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      
+    }
+
+    #book-form input[type="text"],
+    #book-form input[type="number"] {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 0.85rem 0.75rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .form-group input:focus { border-color: var(--accent); }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .checkbox-label input { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+
+    .form-buttons {
+      display: flex;
+      gap: 0.6rem;
+      padding-top: 0.25rem;
+    }
+
+    .form-buttons button {
+      flex: 1;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.6rem;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      transition: opacity 0.15s;
+    }
+
+    .btn-submit  { background: var(--accent); color: #141414; border-color: var(--accent); }
+    .btn-cancel  { background: transparent;   color: var(--muted); }
+    .btn-submit:hover,
+    .btn-cancel:hover { opacity: 0.8; }
+
