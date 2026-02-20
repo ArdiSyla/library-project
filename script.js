@@ -1,4 +1,4 @@
-const MyLibrary = [];
+const myLibrary = [];
 
 function Book(title, author, pages, read) {
     this.id = crypto.randomUUID();
@@ -8,15 +8,19 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
+Book.prototype.toggleRead = function () {
+      this.read = !this.read;
+    };
+
 function addBookToLibrary(title, author, pages, read) {
     const newBook = new Book(title, author, pages, read);
-    MyLibrary.push(newBook);
+    myLibrary.push(newBook);
 }
 
 
     function removeBook(id) {
-      const i = MyLibrary.findIndex(b => b.id === id);
-      if (i !== -1) MyLibrary.splice(i, 1);
+      const i = myLibrary.findIndex(b => b.id === id);
+      if (i !== -1) myLibrary.splice(i, 1);
     }
 
 
@@ -24,7 +28,17 @@ function displayLibrary() {
     const grid = document.getElementById("book-grid");
     grid.innerHTML = "";
 
-    MyLibrary.forEach((book) => {
+    if (myLibrary.length === 0) {
+        grid.innerHTML = `<div class="empty-state">No books yet — add one to get started.</div>`;
+        document.getElementById("book-count").textContent = '';
+        return;
+      }
+
+      const readCount = myLibrary.filter(b => b.read).length;
+      document.getElementById("book-count").textContent =
+        `${myLibrary.length} book${myLibrary.length !== 1 ? 's' : ''} · ${readCount} read`;
+
+    myLibrary.forEach((book) => {
         const card = document.createElement("div");
         card.classList.add("book-card");
         card.dataset.id = book.id;
@@ -36,6 +50,9 @@ function displayLibrary() {
         <span class="read-badge ${book.read ? "read" : "unread"}">
         ${book.read ? "Read" : "Not Read"}
       </span>
+      <div class="card-actions">
+            <button class="toggle-read-btn" data-id="${book.id}">
+              ${book.read ? "Mark unread" : "Mark read"}
       </button>
             <button class="remove-btn" data-id="${book.id}">Remove</button>
           </div>
@@ -45,12 +62,18 @@ function displayLibrary() {
     });
 }
 
- document.querySelectorAll(".remove-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          removeBook(btn.dataset.id);
-          displayLibrary();
-        });
-      });
+const grid = document.getElementById("book-grid");
+
+grid.addEventListener("click", (e) => {
+  if (e.target.classList.contains("toggle-read-btn")) {
+    const book = myLibrary.find(b => b.id === e.target.dataset.id);
+    if (book) { book.toggleRead(); displayLibrary(); }
+  }
+  if (e.target.classList.contains("remove-btn")) {
+    removeBook(e.target.dataset.id);
+    displayLibrary();
+  }
+});
 
 //Dialog
 const dialog = document.getElementById("book-dialog");
