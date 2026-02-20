@@ -14,6 +14,12 @@ function addBookToLibrary(title, author, pages, read) {
 }
 
 
+    function removeBook(id) {
+      const i = MyLibrary.findIndex(b => b.id === id);
+      if (i !== -1) MyLibrary.splice(i, 1);
+    }
+
+
 function displayLibrary() {
     const grid = document.getElementById("book-grid");
     grid.innerHTML = "";
@@ -27,14 +33,24 @@ function displayLibrary() {
         <h2 class="book-title">${book.title}</h2>
         <p class="book-author">by ${book.author}</p>
         <p class="book-pages">${book.pages} pages</p>
-          <span class="read-badge ${book.read ? "read" : "unread"}">
+        <span class="read-badge ${book.read ? "read" : "unread"}">
         ${book.read ? "Read" : "Not Read"}
       </span>
+      </button>
+            <button class="remove-btn" data-id="${book.id}">Remove</button>
+          </div>
       `;
 
         grid.appendChild(card);
     });
 }
+
+ document.querySelectorAll(".remove-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          removeBook(btn.dataset.id);
+          displayLibrary();
+        });
+      });
 
 //Dialog
 const dialog = document.getElementById("book-dialog");

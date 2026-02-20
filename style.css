@@ -128,6 +128,40 @@
     .read-badge.read   { background: rgba(240,192,64,0.15); color: var(--accent); }
     .read-badge.unread { background: rgba(255,255,255,0.05); color: var(--muted); }
 
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+     .card-actions button {
+      flex: 1;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.4rem;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .toggle-read-btn:hover { color: var(--accent); border-color: var(--accent); }
+    .remove-btn:hover      { color: #e05555;        border-color: #e05555; }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+    }
+
+
      dialog {
       background: var(--surface);
       border: 1px solid var(--border);
